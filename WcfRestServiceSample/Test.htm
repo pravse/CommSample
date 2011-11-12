@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>REST Services Sample Test Page</title>
+</head>
+<body>
+<script type = "text/javascript" src="jquery-1.4.1.js"></script>
+<script type = "text/javascript" src="JSONHelper.js"></script>
+<script type="text/javascript">
+
+    // on document load
+    $(function () {
+        // alert("Document loaded");
+    });
+
+    function ShowSampleItemsJSON(samples) {
+        alert($.printableJSON(samples, 0));
+    };
+
+    function GetSampleItems() {
+        // alert("Get Sample items");
+        $.getJSON("SampleService", ShowSampleItemsJSON);
+    };
+
+    function GetOneSampleItem(id) {
+        // alert("Get one Sample item");
+        $.getJSON("SampleService/" + id, ShowSampleItemsJSON);
+    };
+
+    function PostSampleItem(id, value) {
+        // alert("Post Sample item: " + id + " , " + value);
+        var dataToPost = { Id: id, StringValue: value };
+        $.postJSON("SampleService/", dataToPost, ShowSampleItemsJSON);
+    };
+
+    function UpdateSampleItem(id, value) {
+        // alert("Update Sample item: " + id + " , " + value);
+        var dataToPost = { method: 'update', instance: { Id: id, StringValue: value} };
+        $.postJSON("SampleService/" + id, dataToPost, ShowSampleItemsJSON);
+    };
+
+    function DeleteSampleItem(id) {
+        // alert("Delete Sample item :" + id);
+        var dataToPost = { method: 'delete'};
+        $.postJSON("SampleService/" + id, dataToPost);
+        alert("No response expected from delete");
+    };
+
+</script>
+    <h2>REST Services Sample Test Page</h2>
+    <table border>
+        <tr>
+            <td>
+                <form>
+                    <input type="button" value="GetSampleItems" onclick="GetSampleItems();" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="id" /> <br />
+                    Value: <input type="text" name="value" /> <br />
+                    <input type="button" value="PostSampleItem" onclick="PostSampleItem(this.form.id.value, this.form.value.value);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="id" /> <br />
+                    Value: <input type="text" name="value" /> <br />
+                    <input type="button" value="UpdateSampleItem" onclick="UpdateSampleItem(this.form.id.value, this.form.value.value);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="id" /> <br />
+                    <input type="button" value="GetSampleItem" onclick="GetOneSampleItem(this.form.id.value);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="id" /> <br />
+                    <input type="button" value="DeleteSampleItem" onclick="DeleteSampleItem(this.form.id.value);" />
+                </form> 
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
