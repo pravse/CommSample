@@ -21,6 +21,9 @@ function GetTabString(tabLevel) {
 
 $.printableJSON = function (JSONObject, tabLevel) {
     var printString = "";
+    if (null == JSONObject) {
+        return printString;
+    }
     if (typeof JSONObject == 'object') {
         printString += "{ \n";
         $.each(JSONObject, function (key, value) {

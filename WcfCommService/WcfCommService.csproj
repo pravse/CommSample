@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WcfRestServiceSample</RootNamespace>
-    <AssemblyName>WcfRestServiceSample</AssemblyName>
+    <RootNamespace>WcfCommService</RootNamespace>
+    <AssemblyName>WcfCommSample</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
@@ -33,6 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Crystalbyte.Equinox.Core, Version=0.4.4191.41725, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\equinox\bin\Release\Crystalbyte.Equinox.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Crystalbyte.Equinox.Imap, Version=0.4.4343.817, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\equinox\bin\Release\Crystalbyte.Equinox.Imap.dll</HintPath>
+    </Reference>
+    <Reference Include="Crystalbyte.Equinox.Mime, Version=0.4.4343.816, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\equinox\bin\Release\Crystalbyte.Equinox.Mime.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -53,6 +65,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\EmailForm.EmailToDoodle.htm" />
+    <Content Include="App_Data\EmailForm.TwoWayEmail.htm" />
     <Content Include="Global.asax" />
     <Content Include="JSONHelper.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -70,15 +84,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SampleService.cs" />
-    <Compile Include="SampleItem.cs" />
+    <Compile Include="CommLogic.cs" />
+    <Compile Include="CommService.cs" />
+    <Compile Include="Doodle\DoodleClient.cs" />
+    <Compile Include="Doodle\poll.cs" />
+    <Compile Include="Doodle\PollPartial.cs" />
+    <Compile Include="Mail\MailClient.cs" />
+    <Compile Include="Mail\MailProvider.cs" />
+    <Compile Include="Mail\OAuthProvider.cs" />
+    <Compile Include="ServiceRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceResponse.cs" />
+    <Compile Include="Twilio\TwilioClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <None Include="Doodle\comment.xsd" />
+    <None Include="Doodle\feature.xsd" />
+    <None Include="Doodle\participant.xsd" />
+    <None Include="Doodle\poll.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

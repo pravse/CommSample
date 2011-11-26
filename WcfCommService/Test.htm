@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>REST Services Sample Test Page</title>
+</head>
+<body>
+<script type = "text/javascript" src="jquery-1.4.1.js"></script>
+<script type = "text/javascript" src="JSONHelper.js"></script>
+<script type="text/javascript">
+
+    // on document load
+    $(function () {
+        // alert("Document loaded");
+    });
+
+    function ShowServiceRequestsJSON(samples) {
+        // alert($.printableJSON(samples, 0));
+        alert("Id: " + samples.Id + ", Channel: " + samples.Channel);
+        // update the id in the ServiceResponse form
+        $("#requestid"+samples.Channel)[0].value = samples.Id;
+    };
+
+    function ShowServiceResponseJSON(samples) {
+        alert($.printableJSON(samples, 0));
+        // alert(samples.Id);
+    };
+
+    function GetServiceRequests() {
+        // alert("Get Sample items");
+        $.getJSON("CommService/request", ShowServiceRequestsJSON);
+    };
+
+    function GetServiceResponse(id) {
+        // alert("Get one Sample item");
+        $.getJSON("CommService/response/" + id, ShowServiceResponseJSON);
+    };
+
+    function PostServiceRequest(recipient, subject, question, channel) {
+        alert("Post request: " + recipient + " , " + subject + " , " + question);
+        var dataToPost = { Recipient: recipient, Subject: subject, Question: question, Channel: channel };
+        $.postJSON("CommService/request", dataToPost, ShowServiceRequestsJSON);
+    };
+
+
+</script>
+    <h2>Communication Sample Test Page</h2>
+    <table border="1">
+        <thead>
+            <b><tr>
+                <td>
+                Two-way Communication via Email
+                </td>
+                <td>
+                Communication via Email outbound and Doodle inbound
+                </td>
+                <td>
+                Two-way Communication via Phone (Twilio) 
+                </td>
+            </tr></b>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <form action="Test.htm">
+                    Recipient  : <input type="text" name="recipient" value="praveen_seshadri@hotmail.com"/>  <br />
+                    Subject: <input type="text" name="subject" value="Please respond to this bot" />  <br />
+                    Question: <input type="text" name="question" value="What is two plus two?"/>  <br />
+                    <input type="button" value="PostServiceRequest" onclick="PostServiceRequest(this.form.recipient.value, this.form.subject.value, this.form.question.value, 1);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Recipient  : <input type="text" name="recipient" value="praveen_seshadri@hotmail.com"/>  <br />
+                    Subject: <input type="text" name="subject" value="Please respond to this bot" />  <br />
+                    Question: <input type="text" name="question" value="What is two plus two?"/>  <br />
+                    <input type="button" value="PostServiceRequest" onclick="PostServiceRequest(this.form.recipient.value, this.form.subject.value, this.form.question.value, 2);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Recipient  : <input type="text" name="recipient" value="praveen_seshadri@hotmail.com"/>  <br />
+                    Subject: <input type="text" name="subject" value="Please respond to this bot" />  <br />
+                    Question: <input type="text" name="question" value="What is two plus two?"/>  <br />
+                    <input type="button" value="PostServiceRequest" onclick="PostServiceRequest(this.form.recipient.value, this.form.subject.value, this.form.question.value, 3);" />
+                </form> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="requestid1" id="requestid1"/> <br />
+                    <input type="button" value="GetServiceResponse" onclick="GetServiceResponse(this.form.requestid1.value);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="requestid2" id="requestid2"/> <br />
+                    <input type="button" value="GetServiceResponse" onclick="GetServiceResponse(this.form.requestid2.value);" />
+                </form> 
+            </td>
+            <td>
+                <form action="Test.htm">
+                    Id   : <input type="text" name="requestid3" id="requestid3"/> <br />
+                    <input type="button" value="GetServiceResponse" onclick="GetServiceResponse(this.form.requestid3.value);" />
+                </form> 
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

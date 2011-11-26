@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://doodle.com/xsd1" xmlns:tns="http://doodle.com/xsd1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			Participant schema for RESTful Doodle API.
+			$Id: participant.xsd 23183 2011-09-23 14:05:04Z ps $
+			Copyright 2007-2008 Inturico Engineering GmbH
+			Copyright 2008-2010 Doodle AG
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:element name="participant" type="tns:ParticipantType"/>
+	
+	<xsd:complexType name="ParticipantType">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:long" minOccurs="0"/>
+			<xsd:element name="participantKey" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="targetCalendarId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="participantFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="participantLastName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="participantPostalAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="participantEmailAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="participantPhoneNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="preferences">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="option" maxOccurs="unbounded">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:integer">
+									<xsd:minInclusive value="0"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

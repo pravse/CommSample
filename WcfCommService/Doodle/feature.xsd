@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://doodle.com/xsd1" xmlns:tns="http://doodle.com/xsd1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			User schema for RESTful Doodle API.
+			$Id: feature.xsd 23183 2011-09-23 14:05:04Z ps $
+			Copyright 2007-2008 Inturico Engineering GmbH
+			Copyright 2008-2010 Doodle AG
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="features" type="tns:FeaturesType" />
+
+	<xsd:simpleType name="FeatureType">
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="useCustomURL"/>
+	    <xsd:enumeration value="useCustomLogo"/>
+	    <xsd:enumeration value="hideAds"/>
+	    <xsd:enumeration value="hideDoodleFor"/>
+	    <xsd:enumeration value="useCustomDecoration"/>
+	    <xsd:enumeration value="useCustomCSS"/>
+	    <xsd:enumeration value="requireAuth"/>
+	    <xsd:enumeration value="useSSL"/>
+	    <xsd:enumeration value="customTheme"/>
+	    <xsd:enumeration value="avatar"/>
+	    <xsd:enumeration value="extraInformation"/>
+	    <xsd:enumeration value="quickReply"/>
+	    <xsd:enumeration value="pickSubCalendar"/>
+	    <xsd:enumeration value="smsLink"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="FeaturesType">
+		<xsd:sequence>
+			<xsd:element name="feature" type="tns:FeatureType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://doodle.com/xsd1" xmlns:tns="http://doodle.com/xsd1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			Comment schema for RESTful Doodle API.
+			$Id: comment.xsd 23183 2011-09-23 14:05:04Z ps $
+			Copyright 2007-2008 Inturico Engineering GmbH
+			Copyright 2008-2009 Doodle AG
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:element name="comment" type="tns:CommentType" />
+	
+	<xsd:complexType name="CommentType">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:long" minOccurs="0"/>
+			<xsd:element name="who" type="xsd:string" />
+			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="when" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="what" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

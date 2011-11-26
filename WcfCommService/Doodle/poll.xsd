@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://doodle.com/xsd1" xmlns:tns="http://doodle.com/xsd1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			Poll schema for RESTful Doodle API.
+			$Id: poll.xsd 23183 2011-09-23 14:05:04Z ps $
+			Copyright 2007-2008 Inturico Engineering GmbH
+			Copyright 2008-2010 Doodle AG
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="comment.xsd"/>
+	
+	<xsd:include schemaLocation="participant.xsd"/>	
+	
+	<xsd:include schemaLocation="feature.xsd"/>
+
+	<xsd:element name="poll" type="tns:PollType"/>
+	
+	<xsd:complexType name="PollType">
+		<xsd:sequence>
+			<xsd:element name="latestChange" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="type" type="tns:PollTypeType" minOccurs="0"/>
+			<xsd:element name="extensions" type="tns:ExtensionsType" minOccurs="0"/>
+			<xsd:element name="hidden" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="writeOnce" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="requireAddress" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="requireEMail" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="requirePhone" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="byInvitationOnly" type="tns:ByInvitationOnlyType" minOccurs="0"/>
+			<xsd:element name="levels" type="tns:LevelsType" minOccurs="0"/>
+			<xsd:element name="state" type="tns:StatesType" minOccurs="0"/>
+			<xsd:element name="title" type="xsd:string"/>
+			<xsd:element name="location" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="description" type="xsd:string"/>
+			<xsd:element name="initiator" type="tns:InitiatorType"/>
+			<xsd:element name="options" type="tns:OptionsType"/>
+			<xsd:element name="participants" type="tns:ParticipantsType" minOccurs="0"/>
+			<xsd:element name="comments" type="tns:CommentsType" minOccurs="0"/>
+			<xsd:element name="mandator" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="features" type="tns:FeaturesType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="PollTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="DATE"/>
+			<xsd:enumeration value="TEXT"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="ExtensionsType">
+			<xsd:attribute name="timeZone" type="xsd:boolean"/>
+			<xsd:attribute name="columnConstraint" type="tns:ColumnConstraintType"/>
+			<xsd:attribute name="rowConstraint" type="tns:RowConstraintType"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ByInvitationOnlyType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:boolean">
+				<xsd:attribute name="nrOfInvitees" type="xsd:integer"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="ColumnConstraintType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="RowConstraintType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="LevelsType">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="2"/>
+			<xsd:maxInclusive value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="StatesType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="OPEN"/>
+			<xsd:enumeration value="CLOSED"/>
+			<xsd:enumeration value="DELETED"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="InitiatorType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="eMailAddress" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="OptionsType">
+		<xsd:sequence>
+			<xsd:element name="option" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="date" type="xsd:date"/>
+							<xsd:attribute name="dateTime" type="xsd:dateTime"/>
+							<xsd:attribute name="startDateTime" type="xsd:dateTime"/>
+							<xsd:attribute name="endDateTime" type="xsd:dateTime"/>
+							<xsd:attribute name="final" type="xsd:boolean"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ParticipantsType">
+		<xsd:sequence>
+			<xsd:element name="participant" minOccurs="0" maxOccurs="unbounded" type="tns:ParticipantType"/>
+		</xsd:sequence>
+		<xsd:attribute name="nrOf" type="xsd:integer"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="CommentsType">
+		<xsd:sequence>
+			<xsd:element name="comment" minOccurs="0" maxOccurs="unbounded" type="tns:CommentType"/>
+		</xsd:sequence>
+		<xsd:attribute name="nrOf" type="xsd:integer"/>
+	</xsd:complexType>
+
+</xsd:schema>
