@@ -4,3 +4,4 @@
 *.user
 *.private
 *.*~
+!Crystalbyte*.dll
