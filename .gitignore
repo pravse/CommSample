@@ -1,7 +1,8 @@
 [Bb]in
 [Oo]bj
+Releases
 *.suo
 *.user
 *.private
 *.*~
-!Crystalbyte*.dll
+
